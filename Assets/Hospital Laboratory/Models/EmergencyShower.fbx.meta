@@ -3,7 +3,27 @@ guid: 1eb6ba9a6d828e44db4735953216544c
 ModelImporter:
   serializedVersion: 21300
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Floor_MAT
+    second: {fileID: 2100000, guid: d01b939f4e660a348ab351918ec758ea, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: HandSign_MAt
+    second: {fileID: 2100000, guid: 854e9eff3bcbd8045b5fd1bde2d7144e, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: ShowerSign_MAT
+    second: {fileID: 2100000, guid: 4aab17d3fd32b8d43a55a92de9919927, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Shower_MAT
+    second: {fileID: 2100000, guid: 13396bce4c55f5941993b3928cd97b9a, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
