@@ -15,14 +15,27 @@ public class InputToSheets : MonoBehaviour
     [SerializeField] TMP_InputField inputField;
     [SerializeField] TextMeshProUGUI resultText;
 
-    public void ValidateInput()
+    public void ValidateNameInput()
+    {
+
+    }
+
+    public void ValidateJagNumInput()
     {
         string input = inputField.text;
 
-        if (input.Length != 6 || input.GetType() != typeof(int))
+        int i = 0;
+
+        // If a 6 digit input and is a numeric value, return valid
+        if (input.Length != 6 || !int.TryParse(input, out i))
         {
             resultText.text = "JagNumber is invalid. Please enter a 6 digit number.";
             resultText.color = Color.red;
+        }
+        else
+        {
+            resultText.text = "Valid.";
+            resultText.color = Color.green;
         }
     }
 }
