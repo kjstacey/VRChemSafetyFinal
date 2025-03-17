@@ -4,27 +4,18 @@ using UnityEngine;
 
 public class AnimateWhenNear : MonoBehaviour
 {
+    public Animation doorAnimation;  // The Animation component attached to the door
+    public string animationName = "Open";  // Name of the embedded animation
 
-    [SerializeField] public Animation anim;
-    private float dist;
-    public GameObject door;
-    private Transform player;
-
-    // Start is called before the first frame update
-    void Start()
+    private void OnTriggerEnter(Collider other)
     {
-        player = GameObject.FindWithTag("Player").GetComponent<Transform>();
-        //anim = GetComponent<Animation>();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        dist = Vector3.Distance(player.position, player.transform.position);
-        if (dist < 5.0f)
+        if (other.CompareTag("Player"))  // Ensure the player is the one triggering the door
         {
-            anim["Open"].wrapMode = WrapMode.Once;
-            anim.Play("Open");
+            Debug.Log("Player entered the trigger zone!");
+            if (!doorAnimation.isPlaying)  // Play the animation only if it's not already playing
+            {
+                doorAnimation.Play(animationName);  // Play the animation
+            }
         }
     }
 }

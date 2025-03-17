@@ -19,6 +19,7 @@ public class ValidateJagNumber : MonoBehaviour
     [SerializeField] Canvas EnterInfoCanvas;
     [SerializeField] GameObject keyboard;
     [SerializeField] GameObject invisibleWall;
+    [SerializeField] GameObject doors;
 
     public static string FirstLastNameText;
     public static string JagNumText;
@@ -54,6 +55,8 @@ public class ValidateJagNumber : MonoBehaviour
             JagNumText = "J00" + JagNumInput.text;
 
             Debug.Log("name: " + FirstLastNameText + "\njnum: " + JagNumText);
+
+            Invoke("OpenDoors", 7.0f);
         }
     }
 
@@ -64,5 +67,10 @@ public class ValidateJagNumber : MonoBehaviour
         if (keyboard.activeInHierarchy) keyboard.SetActive(false);
 
         invisibleWall.SetActive(false);
+    }
+
+    void OpenDoors()
+    {
+        doors.GetComponent<Animation>().Play("Open");
     }
 }
