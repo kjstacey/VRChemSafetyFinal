@@ -28,11 +28,12 @@ public class ValidateJagNumber : MonoBehaviour
     {
         // First, validate the jagnumber
         //bool validated = false;
-        string input = JagNumInput.text;
+        FirstLastNameText = FirstLastNameInput.text;
+        JagNumText = JagNumInput.text;
         int i = 0;
 
         // If a 6 digit input and is a numeric value, return valid
-        if (input.Length != 6 || !int.TryParse(input, out i))
+        if (JagNumText.Length != 6 || !int.TryParse(JagNumText, out i))
         {
             //Debug.Log("input: " + input + "\ninput.length = " + input.Length + "\n!int.TryParse = " + !int.TryParse(input, out i));
             resultText.text = "JagNumber is invalid. Please enter a 6 digit number.";

@@ -1,6 +1,9 @@
 ﻿using UnityEngine;
 using TMPro;
 using UnityEngine.SceneManagement;
+using System.Runtime.CompilerServices;
+using UnityEngine.Networking;
+using System.Collections;
 
 public class GameManager : MonoBehaviour
 {
@@ -15,6 +18,10 @@ public class GameManager : MonoBehaviour
     private string[] correctAnswers;
     private int currentQuestionIndex;
     private int score;
+
+    private string formUrl = "https://docs.google.com/forms/u/0/d/e/1FAIpQLSe33yhbwTLi7DxLiLV_gdh_5Asgrv-sxdCF_4AYO7y3mk5oEA/formResponse";
+    string StudentName = ValidateJagNumber.FirstLastNameText;
+    string StudentJNum = ValidateJagNumber.JagNumText;
 
     void Start()
     {
@@ -113,6 +120,8 @@ public class GameManager : MonoBehaviour
 
     public void AnswerSelected(int answerIndex)
     {
+        Debug.Log("Name: " + StudentName);
+        Debug.Log("Num: " + StudentJNum);
         string chosenAnswer = options[currentQuestionIndex][answerIndex];
 
         if (chosenAnswer == correctAnswers[currentQuestionIndex])
@@ -132,6 +141,7 @@ public class GameManager : MonoBehaviour
             scoreText.text = "Score: " + score.ToString();
             nextSceneButton.SetActive(true);
 
+            StartCoroutine(SendToSheet(StudentName, StudentJNum));
 
         }
     }
@@ -144,6 +154,25 @@ public class GameManager : MonoBehaviour
         for (int i = 0; i < answerTexts.Length; i++)
         {
             answerTexts[i].text = options[currentQuestionIndex][i];
+        }
+    }
+
+    private IEnumerator SendToSheet(string name, string jnum)
+    {
+        WWWForm form = new WWWForm();
+        form.AddField("entry.158746761", name);
+        form.AddField("entry.1534266805", jnum);
+        using (UnityWebRequest www = UnityWebRequest.Post(formUrl, form)){
+            yield return www.SendWebRequest();
+
+            if (www.result == UnityWebRequest.Result.Success)
+            {
+                Debug.Log("Successful");
+            }
+            else
+            {
+                Debug.Log("Unsuccessful, error: " + www.error);
+            }
         }
     }
 }
