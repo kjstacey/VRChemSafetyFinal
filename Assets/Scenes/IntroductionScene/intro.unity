@@ -6290,6 +6290,7 @@ MonoBehaviour:
   - {fileID: 996381251}
   scoreText: {fileID: 1379703640}
   nextSceneButton: {fileID: 2100334182}
+  GettingInput: {fileID: 2102099403}
 --- !u!4 &1154520081 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7668928601234224088, guid: 2df59c4cde52fef46b05a4148019d898,
@@ -11786,6 +11787,8 @@ MonoBehaviour:
   keyboard: {fileID: 102734348}
   invisibleWall: {fileID: 228011208}
   doors: {fileID: 7694239}
+  FirstLastNameText: 
+  JagNumText: 
 --- !u!1 &2139549307
 GameObject:
   m_ObjectHideFlags: 0

@@ -19,9 +19,13 @@ public class GameManager : MonoBehaviour
     private int currentQuestionIndex;
     private int score;
 
+    // For sending to Sheets
     private string formUrl = "https://docs.google.com/forms/u/0/d/e/1FAIpQLSe33yhbwTLi7DxLiLV_gdh_5Asgrv-sxdCF_4AYO7y3mk5oEA/formResponse";
-    string StudentName = ValidateJagNumber.FirstLastNameText;
-    string StudentJNum = ValidateJagNumber.JagNumText;
+    [SerializeField]
+    public GameObject GettingInput; // Game object that the info store script is attached to
+    string StudentName; 
+    string StudentJNum;
+    string PartOfSim = "Introductory Quiz";
 
     void Start()
     {
@@ -120,8 +124,6 @@ public class GameManager : MonoBehaviour
 
     public void AnswerSelected(int answerIndex)
     {
-        Debug.Log("Name: " + StudentName);
-        Debug.Log("Num: " + StudentJNum);
         string chosenAnswer = options[currentQuestionIndex][answerIndex];
 
         if (chosenAnswer == correctAnswers[currentQuestionIndex])
@@ -137,12 +139,15 @@ public class GameManager : MonoBehaviour
         }
         else
         {
+            //GettingInput = GameObject.Find("JagNumberTextInput");
+            StudentName = GettingInput.GetComponent<ValidateJagNumber>().FirstLastNameText;
+            StudentJNum = GettingInput.GetComponent<ValidateJagNumber>().JagNumText;
+
             // Show score and next scene button
             scoreText.text = "Score: " + score.ToString();
             nextSceneButton.SetActive(true);
 
-            StartCoroutine(SendToSheet(StudentName, StudentJNum));
-
+            StartCoroutine(SendToSheet(StudentName, StudentJNum, PartOfSim, score));
         }
     }
 
@@ -157,11 +162,13 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    private IEnumerator SendToSheet(string name, string jnum)
+    private IEnumerator SendToSheet(string name, string jnum, string simpart, int quizscore)
     {
         WWWForm form = new WWWForm();
         form.AddField("entry.158746761", name);
         form.AddField("entry.1534266805", jnum);
+        form.AddField("entry.79633266", simpart);
+        form.AddField("entry.1866273638", quizscore);
         using (UnityWebRequest www = UnityWebRequest.Post(formUrl, form)){
             yield return www.SendWebRequest();
 

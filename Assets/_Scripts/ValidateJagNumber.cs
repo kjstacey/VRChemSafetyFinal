@@ -21,8 +21,8 @@ public class ValidateJagNumber : MonoBehaviour
     [SerializeField] GameObject invisibleWall;
     [SerializeField] GameObject doors;
 
-    public static string FirstLastNameText;
-    public static string JagNumText;
+    public string FirstLastNameText;
+    public string JagNumText;
 
     public void Validate()
     {
