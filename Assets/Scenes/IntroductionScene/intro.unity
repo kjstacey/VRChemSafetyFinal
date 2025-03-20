@@ -6274,6 +6274,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1148928067}
   - component: {fileID: 1148928068}
+  - component: {fileID: 1148928069}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -6317,6 +6318,20 @@ MonoBehaviour:
   - {fileID: 996381251}
   scoreText: {fileID: 1379703640}
   nextSceneButton: {fileID: 2100334182}
+  SendToSheets: {fileID: 1148928069}
+  PartOfSim: Introductory Quiz
+--- !u!114 &1148928069
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1148928066}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b2b28b707c9190147a1e2608c34febb2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
   GettingInput: {fileID: 2102099403}
 --- !u!4 &1154520081 stripped
 Transform:
