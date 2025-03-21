@@ -5,6 +5,11 @@ TagManager:
   serializedVersion: 2
   tags:
   - ClipBoard
+  - Food&Drink
+  - Safety
+  - HeatOn
+  - BrokenGlass
+  - InWalkway
   layers:
   - Default
   - TransparentFX
