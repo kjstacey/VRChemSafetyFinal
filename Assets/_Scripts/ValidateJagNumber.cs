@@ -55,6 +55,10 @@ public class ValidateJagNumber : MonoBehaviour
             FirstLastNameText = FirstLastNameInput.text;
             JagNumText = "J00" + JagNumInput.text;
 
+            PlayerPrefs.SetString("StudentName", FirstLastNameText);
+            PlayerPrefs.SetString("StudentJ#", JagNumText);
+            PlayerPrefs.Save();
+
             Debug.Log("name: " + FirstLastNameText + "\njnum: " + JagNumText);
 
             Invoke("OpenDoors", 7.0f);

@@ -8,16 +8,20 @@ public class SendToSheets : MonoBehaviour
 {
     // For sending to Sheets
     private string formUrl = "https://docs.google.com/forms/u/0/d/e/1FAIpQLSe33yhbwTLi7DxLiLV_gdh_5Asgrv-sxdCF_4AYO7y3mk5oEA/formResponse";
-    [SerializeField]
     public GameObject GettingInput; // Game object that the info store script is attached to
     string StudentName;
     string StudentJNum;
 
+    private void Awake()
+    {
+        StudentName = PlayerPrefs.GetString("StudentName");
+        StudentJNum = PlayerPrefs.GetString("StudentJ#");
+    }
     public void SendScore(string simulationPart, int finalScore)
     {
         //GettingInput = GameObject.Find("JagNumberTextInput");
-        StudentName = GettingInput.GetComponent<ValidateJagNumber>().FirstLastNameText;
-        StudentJNum = GettingInput.GetComponent<ValidateJagNumber>().JagNumText;
+        //StudentName = GettingInput.GetComponent<ValidateJagNumber>().FirstLastNameText;
+        //StudentJNum = GettingInput.GetComponent<ValidateJagNumber>().JagNumText;
 
         StartCoroutine(SendToSheet(StudentName, StudentJNum, simulationPart, finalScore));
     }

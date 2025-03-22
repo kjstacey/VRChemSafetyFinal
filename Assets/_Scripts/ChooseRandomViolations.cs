@@ -1,99 +1,361 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
+using UnityEngine.SocialPlatforms.Impl;
 using UnityEngine.UI;
 
 public class ChooseRandomViolations : MonoBehaviour
 {
     // Init arrays to store GameObjects
+    GameObject[] objWalkway;
     GameObject[] foodAndDrink;
-    GameObject[] safetyEqpt;
     GameObject[] heatElements;
     GameObject[] brokenGlass;
-    // CHEMICAL SPILL
-    GameObject[] objWalkway;
+    // CHEMICAL SPILL GameObject[] chemSpill;
+    GameObject[] safetyEqpt;
 
-    int numFood = 0;
-    int numSafety = 0;
-    int numHeat = 0;
-    int numGlass = 0;
+    public static int numObj;
+    public static int numFood;
+    public static int numHeat;
+    public static int numGlass;
     // CHEMICAL SPILL
-    int numObj = 0;
+    public static int numSafety;
 
     // Store Toggles
     [SerializeField]
-    Toggle foodToggle;
-    Toggle safetyToggle;
-    Toggle heatToggle;
-    Toggle glassToggle;
-    // CHEMICAL SPILL GameObject toggle;
     Toggle objToggle;
+    [SerializeField]
+    Toggle foodToggle;
+    [SerializeField]
+    Toggle heatToggle;
+    [SerializeField]
+    Toggle glassToggle;
+    // CHEMICAL SPILL
+    // [SerializeField]
+    // GameObject spillToggle;
+    [SerializeField]
+    Toggle safetyToggle;
+
+
+    // Store TextBoxes for final screen
+    [SerializeField] GameObject SubmittedScreen;
+    [SerializeField] TextMeshProUGUI finalScoreTMP;
+    [SerializeField] TextMeshProUGUI objectResultTMP;
+    [SerializeField] TextMeshProUGUI foodResultTMP;
+    [SerializeField] TextMeshProUGUI heatResultTMP;
+    [SerializeField] TextMeshProUGUI glassResultTMP;
+    //[SerializeField] TextMeshProUGUI spillResultTMP;
+    [SerializeField] TextMeshProUGUI eqptResultTMP;
+    [SerializeField] Button afterScoring;
+
+    SendToSheets SendToSheets;
+    string PartOfSim = "Violation Simulation";
 
     // Start is called before the first frame update
     void Start()
     {
+        // Init with 0
+        numObj = 0;
+        numFood = 0;
+        numHeat = 0;
+        numGlass = 0;
+        // CHEMICAL SPILL
+        numSafety = 0;
+
         // Put all GameObjects in respective arrays
-        foodAndDrink = GameObject.FindGameObjectsWithTag("FoodAndDrink");
-        safetyEqpt = GameObject.FindGameObjectsWithTag("Safety");
+        objWalkway = GameObject.FindGameObjectsWithTag("InWalkway");
+        foodAndDrink = GameObject.FindGameObjectsWithTag("Food&Drink");
         heatElements = GameObject.FindGameObjectsWithTag("HeatOn");
         brokenGlass = GameObject.FindGameObjectsWithTag("BrokenGlass");
-        objWalkway = GameObject.FindGameObjectsWithTag("InWalkway");
+        // CHEMICAL SPILL chemSpill = GameObject.FindGameObjectsWithTag("ChemSpill");
+        safetyEqpt = GameObject.FindGameObjectsWithTag("Safety");
 
-        // TODO: Randomize to turn certain ones active
+        // Randomize to turn certain ones active
+        // Decides how many to activate - from 0 to the total number in scene
+        numObj = Random.Range(0, 2);
+        numFood = Random.Range(0, 4);
+        numHeat = Random.Range(0, 3);
+        numGlass = Random.Range(0, 2);
+        // numSpill = Random.Range(0, ?);
+        numSafety = Random.Range(0, 3);
 
-        // When activated, run through each array and count which ones are active for end printout
-        foreach (var food in foodAndDrink)
-        {
-            if (food.activeInHierarchy)
+        //Copies for later call
+        int numObjCopy = numObj;
+        int numFoodCopy = numFood;
+        int numHeatCopy = numHeat;
+        int numGlassCopy = numGlass;
+        // numSpill = Random.Range(0, ?);
+        int numSafetyCopy = numSafety;
+
+        // Iterate through GameObject array and turn a certain number of them (the numFood/etc.) on
+        //Objects in Walkway
+        for (int i = 0; i < objWalkway.Length; i++)
             {
-                numFood++;
+                //Debug.Log("Num obj: " + numObj);
+                if (numObjCopy > 0)
+                {
+                    objWalkway[i].gameObject.SetActive(true);
+                    numObjCopy--;
+                }
+                else
+                {
+                    objWalkway[i].gameObject.SetActive(false);
+                }
             }
-        }
-        foreach (var eqpt in safetyEqpt)
-        {
-            if (eqpt.activeInHierarchy)
+            // Food & Drink
+            for (int i = 0; i < foodAndDrink.Length; i++)
             {
-                numSafety++;
+                if (numFoodCopy > 0)
+                {
+                    foodAndDrink[i].gameObject.SetActive(true);
+                    numFoodCopy--;
+                }
+                else
+                {
+                    foodAndDrink[i].gameObject.SetActive(false);
+                }
             }
-        }
-        foreach (var element in heatElements)
-        {
-            if (element.activeInHierarchy)
+            // Heat Elements
+            for (int i = 0; i < heatElements.Length; i++)
             {
-                numHeat++;
+                if (numHeatCopy > 0)
+                {
+                    heatElements[i].gameObject.SetActive(true);
+                    numHeatCopy--;
+                }
+                else
+                {
+                    heatElements[i].gameObject.SetActive(false);
+                }
             }
-        }
-        foreach (var glass in brokenGlass)
-        {
-            if (glass.activeInHierarchy)
+            // Broken Glass
+            for (int i = 0; i < brokenGlass.Length; i++)
             {
-                numGlass++;
+                if (numGlassCopy > 0)
+                {
+                    brokenGlass[i].gameObject.SetActive(true);
+                    numGlassCopy--;
+                }
+                else
+                {
+                    brokenGlass[i].gameObject.SetActive(false);
+                }
             }
-        }
-        foreach (var obj in objWalkway)
+        /* 
+        // Chemical Spills 
+        for (int i = 0; i < chemSpill.Length; i++)
         {
-            if (obj.activeInHierarchy)
+            if (numSpilToActivate > 0)
             {
-                numObj++;
+                chemSpill[i].gameObject.SetActive(true);
+                numSpillToActivate--;
+            }
+            else
+                {
+                    chemSpill[i].gameObject.SetActive(false);
+                }
+            }
+        */
+        // Safety Equiptment
+        for (int i = 0; i < safetyEqpt.Length; i++)
+        {
+            if (numSafetyCopy > 0)
+            {
+                safetyEqpt[i].gameObject.SetActive(true);
+                numSafetyCopy--;
+            }
+            else
+            {
+                safetyEqpt[i].gameObject.SetActive(false);
             }
         }
     }
 
-    void GradeSimulation()
+    public void GradeSimulation()
     {
         int correct = 0;
         int outOf = 5; // 6; - CHEMICAL SPILL
-        bool objectActiveAndToggleOn = false; // Food active in the hierarchy and toggle is on (user marked violation correctly)
-        bool objectInactiveAndToggleOff = false; // Food inactive in violation and toggle off (user did not mark violation because none occured)
+        bool objectActiveAndToggleOn = false; // GameObj active in the hierarchy and toggle is on (user marked violation correctly), +1 point
+        bool objectInactiveAndToggleOff = false; // GameObj inactive in violation and toggle off (user did not mark violation because none occured), +1 point
+
         // If an object in the array is active AND the toggle has been clicked, say they passed
-        foreach (var food in foodAndDrink)
+        // Object in Walkway Check
+        foreach (var obj in objWalkway)
         {
-            // If there is not a food active in the hierarchy (violation) and toggle is on (user marked violation)
-            if (food.activeInHierarchy && foodToggle.isOn)
+            // If there is a food active in the hierarchy (violation) and toggle is on (user marked violation), turn the bool on and give a point
+            if (obj.activeInHierarchy && objToggle.isOn)
             {
                 objectActiveAndToggleOn = true;
             }
+            // If no food is active in hierarchy and the toggle is off, give them a point
+            else if (!obj.activeInHierarchy && !objToggle.isOn)
+            {
+                objectInactiveAndToggleOff = true;
+            }
         }
-        if (objectActiveAndToggleOn) correct++;
+        if (objectActiveAndToggleOn || objectInactiveAndToggleOff)
+        {
+            correct++;
+            objectResultTMP.text = "Passed (" + numObj + " present)";
+        }
+        else
+        {
+            objectResultTMP.text = "Failed (" + numObj + " present)";
+        }
+        objectActiveAndToggleOn = false; // Reset each time
+        objectInactiveAndToggleOff = false; // Reset each time
+        
+        // Food & Drink Check
+        foreach (var food in foodAndDrink)
+            {
+                // If there is a food active in the hierarchy (violation) and toggle is on (user marked violation), turn the bool on and give a point
+                if (food.activeInHierarchy && foodToggle.isOn)
+                {
+                    objectActiveAndToggleOn = true;
+                }
+                // If no food is active in hierarchy and the toggle is off, give them a point
+                else if (!food.activeInHierarchy && !foodToggle.isOn)
+                {
+                    objectInactiveAndToggleOff = true;
+                }
+            }
+            if (objectActiveAndToggleOn || objectInactiveAndToggleOff)
+            {
+                correct++;
+                foodResultTMP.text = "Passed (" + numFood + " present)";
+            }
+            else
+            {
+                foodResultTMP.text = "Failed (" + numFood + " present)";
+            }
+            objectActiveAndToggleOn = false; // Reset each time
+            objectInactiveAndToggleOff = false; // Reset each time
+
+            // Heat Element Eqpt Check
+            foreach (var heat in heatElements)
+            {
+                // If there is a food active in the hierarchy (violation) and toggle is on (user marked violation), turn the bool on and give a point
+                if (heat.activeInHierarchy && heatToggle.isOn)
+                {
+                    objectActiveAndToggleOn = true;
+                }
+                // If no food is active in hierarchy and the toggle is off, give them a point
+                else if (!heat.activeInHierarchy && !heatToggle.isOn)
+                {
+                    objectInactiveAndToggleOff = true;
+                }
+            }
+            if (objectActiveAndToggleOn || objectInactiveAndToggleOff)
+            {
+                correct++;
+                heatResultTMP.text = "Passed (" + numHeat + " present)";
+            }
+            else
+            {
+                heatResultTMP.text = "Failed (" + numHeat + " present)";
+            }
+            objectActiveAndToggleOn = false; // Reset each time
+            objectInactiveAndToggleOff = false; // Reset each time
+
+            // Broken Glass Check
+            foreach (var glass in brokenGlass)
+            {
+                // If there is a food active in the hierarchy (violation) and toggle is on (user marked violation), turn the bool on and give a point
+                if (glass.activeInHierarchy && glassToggle.isOn)
+                {
+                    objectActiveAndToggleOn = true;
+                }
+                // If no food is active in hierarchy and the toggle is off, give them a point
+                else if (!glass.activeInHierarchy && !glassToggle.isOn)
+                {
+                    objectInactiveAndToggleOff = true;
+                }
+            }
+            if (objectActiveAndToggleOn || objectInactiveAndToggleOff)
+            {
+                correct++;
+            glassResultTMP.text = "Passed (" + numGlass + " present)";
+            }
+            else
+            {
+                glassResultTMP.text = "Failed (" + numGlass + " present)";
+            }
+            objectActiveAndToggleOn = false; // Reset each time
+            objectInactiveAndToggleOff = false; // Reset each time
+
+        /*
+            // Chemical Spill Check
+            foreach (var spill in chemSpill)
+            {
+                // If there is a food active in the hierarchy (violation) and toggle is on (user marked violation), turn the bool on and give a point
+                if (spill.activeInHierarchy && spillToggle.isOn)
+                {
+                    objectActiveAndToggleOn = true;
+                }
+                // If no food is active in hierarchy and the toggle is off, give them a point
+                else if (!spill.activeInHierarchy && !spillToggle.isOn)
+                {
+                    objectInactiveAndToggleOff = true;
+                }
+            }
+            if (objectActiveAndToggleOn || objectInactiveAndToggleOff)
+                {
+                    correct++;
+                    spillResultTMP.text = "Passed (" + numSpill + " present)";
+                }
+                else
+                {
+                    spillResultTMP.text = "Failed (" + numSpill + " present)";
+                }
+                objectActiveAndToggleOn = false; // Reset each time
+                objectInactiveAndToggleOff = false; // Reset each time
+        */
+        // Safety Eqpt Check
+        foreach (var eqpt in safetyEqpt)
+        {
+            // If there is a food active in the hierarchy (violation) and toggle is on (user marked violation), turn the bool on and give a point
+            if (eqpt.activeInHierarchy && safetyToggle.isOn)
+            {
+                objectActiveAndToggleOn = true;
+            }
+            // If no food is active in hierarchy and the toggle is off, give them a point
+            else if (!eqpt.activeInHierarchy && !safetyToggle.isOn)
+            {
+                objectInactiveAndToggleOff = true;
+            }
+        }
+        if (objectActiveAndToggleOn || objectInactiveAndToggleOff)
+        {
+            correct++;
+            eqptResultTMP.text = "Passed (" + numSafety + " present)";
+        }
+        else
+        {
+            eqptResultTMP.text = "Failed (" + numSafety + " present)";
+        }
+        objectActiveAndToggleOn = false; // Reset each time
+        objectInactiveAndToggleOff = false; // Reset each time
+
+        int finalScore = (correct / outOf) * 100; // Calculates the final score
+
+        if (finalScore > 70)
+        {
+            //SendToSheets.SendScore(PartOfSim, finalScore); TODO: fix this
+            finalScoreTMP.text = "Pass";
+            finalScoreTMP.color = Color.green;
+            afterScoring.GetComponentInChildren <TextMeshProUGUI>().text = "Exit";
+            // On Button Click, end sim
+        }
+        else
+        {
+            finalScoreTMP.text = "Fail";
+            finalScoreTMP.color = Color.red;
+            afterScoring.GetComponentInChildren<TextMeshProUGUI>().text = "Restart";
+            // On Button Click, reload sim
+        }
+
+        // Show Screen when everything filled out
+        SubmittedScreen.SetActive(true);
     }
 }
