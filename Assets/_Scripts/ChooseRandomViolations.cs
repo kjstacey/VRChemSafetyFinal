@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.SocialPlatforms.Impl;
 using UnityEngine.UI;
 
@@ -37,7 +38,6 @@ public class ChooseRandomViolations : MonoBehaviour
     [SerializeField]
     Toggle safetyToggle;
 
-
     // Store TextBoxes for final screen
     [SerializeField] GameObject SubmittedScreen;
     [SerializeField] TextMeshProUGUI finalScoreTMP;
@@ -47,10 +47,23 @@ public class ChooseRandomViolations : MonoBehaviour
     [SerializeField] TextMeshProUGUI glassResultTMP;
     //[SerializeField] TextMeshProUGUI spillResultTMP;
     [SerializeField] TextMeshProUGUI eqptResultTMP;
-    [SerializeField] Button afterScoring;
+    [SerializeField] Button afterScoringExit;
+    [SerializeField] Button afterScoringRestart;
+
+    // For randomly selecting array elements
+    List<int> randomNumberArrayElementObj;
+    List<int> randomNumberArrayElementFood;
+    List<int> randomNumberArrayElementHeat;
+    List<int> randomNumberArrayElementGlass;
+    // List<int> randomNumberArrayElementChem;
+    List<int> randomNumberArrayElementSafety;
 
     SendToSheets SendToSheets;
     string PartOfSim = "Violation Simulation";
+
+
+    // SceneManagement
+    SceneManagement sceneManage;
 
     // Start is called before the first frame update
     void Start()
@@ -80,95 +93,88 @@ public class ChooseRandomViolations : MonoBehaviour
         // numSpill = Random.Range(0, ?);
         numSafety = Random.Range(0, 3);
 
-        //Copies for later call
         int numObjCopy = numObj;
         int numFoodCopy = numFood;
         int numHeatCopy = numHeat;
         int numGlassCopy = numGlass;
-        // numSpill = Random.Range(0, ?);
+        //int numSpillCopy = numSpill;
         int numSafetyCopy = numSafety;
 
-        // Iterate through GameObject array and turn a certain number of them (the numFood/etc.) on
-        //Objects in Walkway
+        // Reshuffle each GameObject[] so that the elements turned on will be random each time
+        ReshuffleArray(objWalkway);
+        foreach (GameObject obj in objWalkway)
+        {
+            Debug.Log(obj.ToString());
+        }
+        ReshuffleArray(foodAndDrink);
+        ReshuffleArray(heatElements);
+        ReshuffleArray(brokenGlass);
+        //ReshuffleArray(chemSpill);
+        ReshuffleArray(safetyEqpt);
+
+        Debug.Log("Num obj: " + numObj);
+        // Obj in Walkway
         for (int i = 0; i < objWalkway.Length; i++)
-            {
-                //Debug.Log("Num obj: " + numObj);
-                if (numObjCopy > 0)
-                {
-                    objWalkway[i].gameObject.SetActive(true);
-                    numObjCopy--;
-                }
-                else
-                {
-                    objWalkway[i].gameObject.SetActive(false);
-                }
-            }
-            // Food & Drink
-            for (int i = 0; i < foodAndDrink.Length; i++)
-            {
-                if (numFoodCopy > 0)
-                {
-                    foodAndDrink[i].gameObject.SetActive(true);
-                    numFoodCopy--;
-                }
-                else
-                {
-                    foodAndDrink[i].gameObject.SetActive(false);
-                }
-            }
-            // Heat Elements
-            for (int i = 0; i < heatElements.Length; i++)
-            {
-                if (numHeatCopy > 0)
-                {
-                    heatElements[i].gameObject.SetActive(true);
-                    numHeatCopy--;
-                }
-                else
-                {
-                    heatElements[i].gameObject.SetActive(false);
-                }
-            }
-            // Broken Glass
-            for (int i = 0; i < brokenGlass.Length; i++)
-            {
-                if (numGlassCopy > 0)
-                {
-                    brokenGlass[i].gameObject.SetActive(true);
-                    numGlassCopy--;
-                }
-                else
-                {
-                    brokenGlass[i].gameObject.SetActive(false);
-                }
-            }
-        /* 
-        // Chemical Spills 
-        for (int i = 0; i < chemSpill.Length; i++)
         {
-            if (numSpilToActivate > 0)
+            if (numObjCopy > 0)
             {
-                chemSpill[i].gameObject.SetActive(true);
-                numSpillToActivate--;
-            }
-            else
-                {
-                    chemSpill[i].gameObject.SetActive(false);
-                }
-            }
-        */
-        // Safety Equiptment
-        for (int i = 0; i < safetyEqpt.Length; i++)
-        {
-            if (numSafetyCopy > 0)
-            {
-                safetyEqpt[i].gameObject.SetActive(true);
-                numSafetyCopy--;
+                objWalkway[i].gameObject.SetActive(true);
+                numObjCopy--;
             }
             else
             {
-                safetyEqpt[i].gameObject.SetActive(false);
+                objWalkway[i].gameObject.SetActive(false);
             }
+        }
+        // Food & Drink
+        for (int i = 0; i < foodAndDrink.Length; i++)
+        {
+            if (numFoodCopy > 0)
+            {
+                foodAndDrink[i].gameObject.SetActive(true);
+                numFoodCopy--;
+            }
+            else
+            {
+                foodAndDrink[i].gameObject.SetActive(false);
+            }
+        }
+        // Heat Elements
+        for (int i = 0; i < heatElements.Length; i++)
+        {
+            if (numHeatCopy > 0)
+            {
+                heatElements[i].gameObject.SetActive(true);
+                numHeatCopy--;
+            }
+            else
+            {
+                heatElements[i].gameObject.SetActive(false);
+            }
+        }
+        // Broken Glass
+        for (int i = 0; i < brokenGlass.Length; i++)
+        {
+            if (numGlassCopy > 0)
+            {
+                brokenGlass[i].gameObject.SetActive(true);
+                numGlassCopy--;
+            }
+            else
+            {
+                brokenGlass[i].gameObject.SetActive(false);
+            }
+        }
+    }
+
+    void ReshuffleArray(GameObject[] goArray)
+    {
+        for (int i = 0; i < goArray.Length; i++)
+        {
+            GameObject temp = goArray[i];
+            int index = Random.Range(i, goArray.Length);
+            goArray[i] = goArray[index];
+            goArray[index] = temp;
         }
     }
 
@@ -206,8 +212,8 @@ public class ChooseRandomViolations : MonoBehaviour
         objectActiveAndToggleOn = false; // Reset each time
         objectInactiveAndToggleOff = false; // Reset each time
         
-        // Food & Drink Check
-        foreach (var food in foodAndDrink)
+            // Food & Drink Check
+            foreach (var food in foodAndDrink)
             {
                 // If there is a food active in the hierarchy (violation) and toggle is on (user marked violation), turn the bool on and give a point
                 if (food.activeInHierarchy && foodToggle.isOn)
@@ -344,15 +350,13 @@ public class ChooseRandomViolations : MonoBehaviour
             //SendToSheets.SendScore(PartOfSim, finalScore); TODO: fix this
             finalScoreTMP.text = "Pass";
             finalScoreTMP.color = Color.green;
-            afterScoring.GetComponentInChildren <TextMeshProUGUI>().text = "Exit";
-            // On Button Click, end sim
+            afterScoringExit.gameObject.SetActive(true);
         }
         else
         {
             finalScoreTMP.text = "Fail";
             finalScoreTMP.color = Color.red;
-            afterScoring.GetComponentInChildren<TextMeshProUGUI>().text = "Restart";
-            // On Button Click, reload sim
+            afterScoringRestart.gameObject.SetActive(true);
         }
 
         // Show Screen when everything filled out
