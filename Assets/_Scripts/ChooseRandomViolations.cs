@@ -85,12 +85,12 @@ public class ChooseRandomViolations : MonoBehaviour
 
         // Randomize to turn certain ones active
         // Decides how many to activate - from 0 to the total number in scene
-        numObj = Random.Range(0, 2);
-        numFood = Random.Range(0, 4);
-        numHeat = Random.Range(0, 3);
-        numGlass = Random.Range(0, 2);
+        numObj = Random.Range(0, 3);
+        numFood = Random.Range(0, 5);
+        numHeat = Random.Range(0, 4);
+        numGlass = Random.Range(0, 3);
         // numSpill = Random.Range(0, ?);
-        numSafety = Random.Range(0, 3);
+        numSafety = Random.Range(0, 4);
 
         int numObjCopy = numObj;
         int numFoodCopy = numFood;
@@ -101,17 +101,18 @@ public class ChooseRandomViolations : MonoBehaviour
 
         // Reshuffle each GameObject[] so that the elements turned on will be random each time
         ReshuffleArray(objWalkway);
-        foreach (GameObject obj in objWalkway)
-        {
-            Debug.Log(obj.ToString());
-        }
+        //foreach (GameObject obj in objWalkway)
+        //{
+        //    Debug.Log(obj.ToString());
+        //}
         ReshuffleArray(foodAndDrink);
         ReshuffleArray(heatElements);
         ReshuffleArray(brokenGlass);
         //ReshuffleArray(chemSpill);
         ReshuffleArray(safetyEqpt);
 
-        Debug.Log("Num obj: " + numObj);
+        // Set certain violations active and disable the others
+        //Debug.Log("Num obj: " + numObj);
         // Obj in Walkway
         for (int i = 0; i < objWalkway.Length; i++)
         {
@@ -164,8 +165,38 @@ public class ChooseRandomViolations : MonoBehaviour
                 brokenGlass[i].gameObject.SetActive(false);
             }
         }
+        /*
+        // Chem Spill
+        for (int i = 0; i < chemSpill.Length; i++)
+        {
+            if (numSpillCopy > 0)
+            {
+                chemSpill[i].gameObject.SetActive(true);
+                numSpillCopy--;
+            }
+            else
+            {
+                chemSpill[i].gameObject.SetActive(false);
+            }
+        }
+        */
+        // Safety Eqpt
+        for (int i = 0; i < safetyEqpt.Length; i++)
+        {
+            if (numSafetyCopy > 0)
+            {
+                safetyEqpt[i].gameObject.SetActive(true);
+                numSafetyCopy--;
+            }
+            else
+            {
+                safetyEqpt[i].gameObject.SetActive(false);
+            }
+        }
+
     }
 
+    // Reshuffles array to have random violations each time
     void ReshuffleArray(GameObject[] goArray)
     {
         for (int i = 0; i < goArray.Length; i++)
