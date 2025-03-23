@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.Video;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class SocketVideo : MonoBehaviour
 {
@@ -16,8 +17,13 @@ public class SocketVideo : MonoBehaviour
     private bool videoPlaying = false;
     private bool quizCompleted = false;
 
+    [SerializeField] Button replayButton;
+
     private void Start()
     {
+        // Set Active = false;
+        replayButton.gameObject.SetActive(false);
+
         // Set the VideoPlayer's output to the TV screens
         videoPlayer1.targetMaterialRenderer = tvScreen1;
         videoPlayer2.targetMaterialRenderer = tvScreen2;
@@ -34,9 +40,10 @@ public class SocketVideo : MonoBehaviour
         
     }
 
+    // SelectEntered socket on vhs player?
     private void OnTriggerEnter(Collider other)
     {
-        // Check if the VHS tape entered the socket
+        // Check if the VHS tape entered the socket TODO: only do when snapped to socket
         if (other.gameObject == objectDetect)
         {
             // Play the video on the TV screens
@@ -48,6 +55,7 @@ public class SocketVideo : MonoBehaviour
 
     private void OnVideoPlaybackComplete(VideoPlayer vp)
     {
+        replayButton.gameObject.SetActive(true);
         // Show the quiz UI when the video playback is complete
         quizUI.SetActive(true);
     }

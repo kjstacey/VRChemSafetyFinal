@@ -58,9 +58,8 @@ public class ChooseRandomViolations : MonoBehaviour
     // List<int> randomNumberArrayElementChem;
     List<int> randomNumberArrayElementSafety;
 
-    SendToSheets SendToSheets;
-    string PartOfSim = "Violation Simulation";
-
+    [SerializeField] SendToSheets sendToGSheet;
+    public string PartOfSim = "Violation Simulation";
 
     // SceneManagement
     SceneManagement sceneManage;
@@ -347,9 +346,10 @@ public class ChooseRandomViolations : MonoBehaviour
 
         if (finalScore > 70)
         {
-            //SendToSheets.SendScore(PartOfSim, finalScore); TODO: fix this
+            sendToGSheet.SendScore(PartOfSim, finalScore);
             finalScoreTMP.text = "Pass";
             finalScoreTMP.color = Color.green;
+            PlayerPrefs.DeleteAll();
             afterScoringExit.gameObject.SetActive(true);
         }
         else
