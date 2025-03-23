@@ -10,6 +10,7 @@ TagManager:
   - HeatOn
   - BrokenGlass
   - InWalkway
+  - Spill
   layers:
   - Default
   - TransparentFX

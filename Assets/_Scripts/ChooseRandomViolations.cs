@@ -13,14 +13,14 @@ public class ChooseRandomViolations : MonoBehaviour
     GameObject[] foodAndDrink;
     GameObject[] heatElements;
     GameObject[] brokenGlass;
-    // CHEMICAL SPILL GameObject[] chemSpill;
+    GameObject[] chemSpill;
     GameObject[] safetyEqpt;
 
     public static int numObj;
     public static int numFood;
     public static int numHeat;
     public static int numGlass;
-    // CHEMICAL SPILL
+    public static int numSpill;
     public static int numSafety;
 
     // Store Toggles
@@ -32,9 +32,8 @@ public class ChooseRandomViolations : MonoBehaviour
     Toggle heatToggle;
     [SerializeField]
     Toggle glassToggle;
-    // CHEMICAL SPILL
-    // [SerializeField]
-    // GameObject spillToggle;
+    [SerializeField]
+    Toggle spillToggle;
     [SerializeField]
     Toggle safetyToggle;
 
@@ -45,7 +44,7 @@ public class ChooseRandomViolations : MonoBehaviour
     [SerializeField] TextMeshProUGUI foodResultTMP;
     [SerializeField] TextMeshProUGUI heatResultTMP;
     [SerializeField] TextMeshProUGUI glassResultTMP;
-    //[SerializeField] TextMeshProUGUI spillResultTMP;
+    [SerializeField] TextMeshProUGUI spillResultTMP;
     [SerializeField] TextMeshProUGUI eqptResultTMP;
     [SerializeField] Button afterScoringExit;
     [SerializeField] Button afterScoringRestart;
@@ -55,7 +54,7 @@ public class ChooseRandomViolations : MonoBehaviour
     List<int> randomNumberArrayElementFood;
     List<int> randomNumberArrayElementHeat;
     List<int> randomNumberArrayElementGlass;
-    // List<int> randomNumberArrayElementChem;
+    List<int> randomNumberArrayElementChem;
     List<int> randomNumberArrayElementSafety;
 
     [SerializeField] SendToSheets sendToGSheet;
@@ -72,7 +71,7 @@ public class ChooseRandomViolations : MonoBehaviour
         numFood = 0;
         numHeat = 0;
         numGlass = 0;
-        // CHEMICAL SPILL
+        numSpill = 0;
         numSafety = 0;
 
         // Put all GameObjects in respective arrays
@@ -80,7 +79,7 @@ public class ChooseRandomViolations : MonoBehaviour
         foodAndDrink = GameObject.FindGameObjectsWithTag("Food&Drink");
         heatElements = GameObject.FindGameObjectsWithTag("HeatOn");
         brokenGlass = GameObject.FindGameObjectsWithTag("BrokenGlass");
-        // CHEMICAL SPILL chemSpill = GameObject.FindGameObjectsWithTag("ChemSpill");
+        chemSpill = GameObject.FindGameObjectsWithTag("Spill");
         safetyEqpt = GameObject.FindGameObjectsWithTag("Safety");
 
         // Randomize to turn certain ones active
@@ -89,26 +88,22 @@ public class ChooseRandomViolations : MonoBehaviour
         numFood = Random.Range(0, 5);
         numHeat = Random.Range(0, 4);
         numGlass = Random.Range(0, 3);
-        // numSpill = Random.Range(0, ?);
+        numSpill = Random.Range(0, 4);
         numSafety = Random.Range(0, 4);
 
         int numObjCopy = numObj;
         int numFoodCopy = numFood;
         int numHeatCopy = numHeat;
         int numGlassCopy = numGlass;
-        //int numSpillCopy = numSpill;
+        int numSpillCopy = numSpill;
         int numSafetyCopy = numSafety;
 
         // Reshuffle each GameObject[] so that the elements turned on will be random each time
         ReshuffleArray(objWalkway);
-        //foreach (GameObject obj in objWalkway)
-        //{
-        //    Debug.Log(obj.ToString());
-        //}
         ReshuffleArray(foodAndDrink);
         ReshuffleArray(heatElements);
         ReshuffleArray(brokenGlass);
-        //ReshuffleArray(chemSpill);
+        ReshuffleArray(chemSpill);
         ReshuffleArray(safetyEqpt);
 
         // Set certain violations active and disable the others
@@ -165,7 +160,6 @@ public class ChooseRandomViolations : MonoBehaviour
                 brokenGlass[i].gameObject.SetActive(false);
             }
         }
-        /*
         // Chem Spill
         for (int i = 0; i < chemSpill.Length; i++)
         {
@@ -179,7 +173,6 @@ public class ChooseRandomViolations : MonoBehaviour
                 chemSpill[i].gameObject.SetActive(false);
             }
         }
-        */
         // Safety Eqpt
         for (int i = 0; i < safetyEqpt.Length; i++)
         {
@@ -216,31 +209,31 @@ public class ChooseRandomViolations : MonoBehaviour
         bool objectInactiveAndToggleOff = false; // GameObj inactive in violation and toggle off (user did not mark violation because none occured), +1 point
 
         // If an object in the array is active AND the toggle has been clicked, say they passed
-        // Object in Walkway Check
-        foreach (var obj in objWalkway)
-        {
-            // If there is a food active in the hierarchy (violation) and toggle is on (user marked violation), turn the bool on and give a point
-            if (obj.activeInHierarchy && objToggle.isOn)
+            // Object in Walkway Check
+            foreach (var obj in objWalkway)
             {
-                objectActiveAndToggleOn = true;
+                // If there is a food active in the hierarchy (violation) and toggle is on (user marked violation), turn the bool on and give a point
+                if (obj.activeInHierarchy && objToggle.isOn)
+                {
+                    objectActiveAndToggleOn = true;
+                }
+                // If no food is active in hierarchy and the toggle is off, give them a point
+                else if (!obj.activeInHierarchy && !objToggle.isOn)
+                {
+                    objectInactiveAndToggleOff = true;
+                }
             }
-            // If no food is active in hierarchy and the toggle is off, give them a point
-            else if (!obj.activeInHierarchy && !objToggle.isOn)
+            if (objectActiveAndToggleOn || objectInactiveAndToggleOff)
             {
-                objectInactiveAndToggleOff = true;
+                correct++;
+                objectResultTMP.text = "Passed (" + numObj + " present)";
             }
-        }
-        if (objectActiveAndToggleOn || objectInactiveAndToggleOff)
-        {
-            correct++;
-            objectResultTMP.text = "Passed (" + numObj + " present)";
-        }
-        else
-        {
-            objectResultTMP.text = "Failed (" + numObj + " present)";
-        }
-        objectActiveAndToggleOn = false; // Reset each time
-        objectInactiveAndToggleOff = false; // Reset each time
+            else
+            {
+                objectResultTMP.text = "Failed (" + numObj + " present)";
+            }
+            objectActiveAndToggleOn = false; // Reset each time
+            objectInactiveAndToggleOff = false; // Reset each time
         
             // Food & Drink Check
             foreach (var food in foodAndDrink)
@@ -320,7 +313,6 @@ public class ChooseRandomViolations : MonoBehaviour
             objectActiveAndToggleOn = false; // Reset each time
             objectInactiveAndToggleOff = false; // Reset each time
 
-        /*
             // Chemical Spill Check
             foreach (var spill in chemSpill)
             {
@@ -336,42 +328,42 @@ public class ChooseRandomViolations : MonoBehaviour
                 }
             }
             if (objectActiveAndToggleOn || objectInactiveAndToggleOff)
-                {
-                    correct++;
-                    spillResultTMP.text = "Passed (" + numSpill + " present)";
-                }
-                else
-                {
-                    spillResultTMP.text = "Failed (" + numSpill + " present)";
-                }
-                objectActiveAndToggleOn = false; // Reset each time
-                objectInactiveAndToggleOff = false; // Reset each time
-        */
-        // Safety Eqpt Check
-        foreach (var eqpt in safetyEqpt)
-        {
-            // If there is a food active in the hierarchy (violation) and toggle is on (user marked violation), turn the bool on and give a point
-            if (eqpt.activeInHierarchy && safetyToggle.isOn)
             {
-                objectActiveAndToggleOn = true;
+                correct++;
+                spillResultTMP.text = "Passed (" + numSpill + " present)";
             }
-            // If no food is active in hierarchy and the toggle is off, give them a point
-            else if (!eqpt.activeInHierarchy && !safetyToggle.isOn)
+            else
             {
-                objectInactiveAndToggleOff = true;
+                spillResultTMP.text = "Failed (" + numSpill + " present)";
             }
-        }
-        if (objectActiveAndToggleOn || objectInactiveAndToggleOff)
-        {
-            correct++;
-            eqptResultTMP.text = "Passed (" + numSafety + " present)";
-        }
-        else
-        {
-            eqptResultTMP.text = "Failed (" + numSafety + " present)";
-        }
-        objectActiveAndToggleOn = false; // Reset each time
-        objectInactiveAndToggleOff = false; // Reset each time
+            objectActiveAndToggleOn = false; // Reset each time
+            objectInactiveAndToggleOff = false; // Reset each time
+        
+            // Safety Eqpt Check
+            foreach (var eqpt in safetyEqpt)
+            {
+                // If there is a food active in the hierarchy (violation) and toggle is on (user marked violation), turn the bool on and give a point
+                if (eqpt.activeInHierarchy && safetyToggle.isOn)
+                {
+                    objectActiveAndToggleOn = true;
+                }
+                // If no food is active in hierarchy and the toggle is off, give them a point
+                else if (!eqpt.activeInHierarchy && !safetyToggle.isOn)
+                {
+                    objectInactiveAndToggleOff = true;
+                }
+            }
+            if (objectActiveAndToggleOn || objectInactiveAndToggleOff)
+            {
+                correct++;
+                eqptResultTMP.text = "Passed (" + numSafety + " present)";
+            }
+            else
+            {
+                eqptResultTMP.text = "Failed (" + numSafety + " present)";
+            }
+            objectActiveAndToggleOn = false; // Reset each time
+            objectInactiveAndToggleOff = false; // Reset each time
 
         int finalScore = (correct / outOf) * 100; // Calculates the final score
 
