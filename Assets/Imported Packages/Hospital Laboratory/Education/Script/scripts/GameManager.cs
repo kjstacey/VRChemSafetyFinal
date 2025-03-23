@@ -4,6 +4,7 @@ using UnityEngine.SceneManagement;
 using System.Runtime.CompilerServices;
 using UnityEngine.Networking;
 using System.Collections;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
@@ -18,6 +19,11 @@ public class GameManager : MonoBehaviour
     private string[] correctAnswers;
     private int currentQuestionIndex;
     private int score;
+
+    [SerializeField] GameObject restartQuizScreen;
+    [SerializeField] GameObject passedQuizScreen;
+    [SerializeField] Text badScore;
+    [SerializeField] Text goodScore;
 
     public SendToSheets SendToSheets;
     public string PartOfSim = "Introductory Video";
@@ -136,12 +142,24 @@ public class GameManager : MonoBehaviour
         }
         else
         {
+            if (score > 5)
+            {
+                quizUI.SetActive(false);
+                passedQuizScreen.SetActive(true);
+                // Show score and next scene button
+                goodScore.text = "Score: " + score.ToString();
+                goodScore.color = Color.green;
+                //nextSceneButton.SetActive(true);
 
-            // Show score and next scene button
-            scoreText.text = "Score: " + score.ToString();
-            nextSceneButton.SetActive(true);
-
-            SendToSheets.SendScore(PartOfSim, score);
+                SendToSheets.SendScore(PartOfSim, score);
+            }
+            else
+            {
+                quizUI.SetActive(false);
+                restartQuizScreen.SetActive(true);
+                badScore.text = "Score: " + score.ToString();
+                badScore.color = Color.red;
+            }
         }
     }
 
@@ -154,6 +172,15 @@ public class GameManager : MonoBehaviour
         {
             answerTexts[i].text = options[currentQuestionIndex][i];
         }
+    }
+
+    public void Restart()
+    {
+        restartQuizScreen.SetActive(false);
+        quizUI.SetActive(true);
+        currentQuestionIndex = 0;
+        score = 0;
+        ShowNextQuestion();
     }
 }
 
