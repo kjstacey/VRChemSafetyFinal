@@ -10,6 +10,8 @@ public class HeadCollisionHandler : MonoBehaviour
     private CharacterController _characterController;
     [SerializeField]
     public float pushBackStrength = 1.0f;
+
+    [SerializeField] private FadeEffect _blackScreenFade;
     private Vector3 CalculatePushBackDirection(List<RaycastHit> colliderHits)
     {
         Vector3 combinedNormal = Vector3.zero;
@@ -25,8 +27,11 @@ public class HeadCollisionHandler : MonoBehaviour
     {
         if (_detector.DetectedColliderHits.Count <= 0)
         {
+            _blackScreenFade.Fade(false);
             return;
         }
+
+        _blackScreenFade.Fade(true);
         Vector3 pushBackDirection
             = CalculatePushBackDirection(_detector.DetectedColliderHits);
 
