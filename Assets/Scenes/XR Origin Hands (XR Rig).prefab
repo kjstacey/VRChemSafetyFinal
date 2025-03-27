@@ -2483,6 +2483,7 @@ MonoBehaviour:
   _detector: {fileID: 1035118754}
   _characterController: {fileID: 8422051631442000703}
   pushBackStrength: 1
+  _blackScreenFade: {fileID: 0}
 --- !u!4 &2494444085330075863 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1767192434, guid: f6336ac4ac8b4d34bc5072418cdc62a0,

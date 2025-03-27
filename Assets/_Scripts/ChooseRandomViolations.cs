@@ -36,6 +36,8 @@ public class ChooseRandomViolations : MonoBehaviour
     Toggle spillToggle;
     [SerializeField]
     Toggle safetyToggle;
+    [SerializeField]
+    Toggle dressToggle;
 
     // Store TextBoxes for final screen
     [SerializeField] GameObject SubmittedScreen;
@@ -46,6 +48,7 @@ public class ChooseRandomViolations : MonoBehaviour
     [SerializeField] TextMeshProUGUI glassResultTMP;
     [SerializeField] TextMeshProUGUI spillResultTMP;
     [SerializeField] TextMeshProUGUI eqptResultTMP;
+    [SerializeField] TextMeshProUGUI dressResultTMP;
     [SerializeField] Button afterScoringExit;
     [SerializeField] Button afterScoringRestart;
 
@@ -365,7 +368,18 @@ public class ChooseRandomViolations : MonoBehaviour
             objectActiveAndToggleOn = false; // Reset each time
             objectInactiveAndToggleOff = false; // Reset each time
 
-        int finalScore = (correct / outOf) * 100; // Calculates the final score
+            // Man is in violation (shorts), so only give points if not marked
+            if (!dressToggle.isOn)
+            {
+                correct++;
+                dressResultTMP.text = "Passed (1 present)";
+            }
+            else
+            {
+                dressResultTMP.text = "Failed (1 present)";
+            }
+
+            int finalScore = (correct / outOf) * 100; // Calculates the final score
 
         if (finalScore > 70)
         {
