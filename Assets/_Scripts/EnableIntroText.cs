@@ -6,23 +6,18 @@ using UnityEngine.SceneManagement;
 public class EnableIntroText : MonoBehaviour
 {
     [SerializeField] GameObject introText;
-    bool started = false;
 
-    // Start is called before the first frame update
     private void OnLevelWasLoaded(int level)
     {
         if (level == 1)
         {
             Debug.Log("Level 1 loaded");
-            //introText.SetActive(true);
-            StartCoroutine(Wait());
-            introText.SetActive(false);
+            Invoke("setFalse", 10.0f);
         }
     }
 
-    IEnumerator Wait()
+    private void setFalse()
     {
-        yield return new WaitForSeconds(10);
-        Debug.Log("I waited to do something!");
+        introText.SetActive(false);
     }
 }
