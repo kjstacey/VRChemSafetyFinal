@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.XR.CoreUtils;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.SocialPlatforms.Impl;
@@ -8,6 +9,9 @@ using UnityEngine.UI;
 
 public class ChooseRandomViolations : MonoBehaviour
 {
+    [SerializeField] XROrigin XROriginStart;
+    [SerializeField] XROrigin XROriginEnd;
+
     // Init arrays to store GameObjects
     GameObject[] objWalkway;
     GameObject[] foodAndDrink;
@@ -207,7 +211,7 @@ public class ChooseRandomViolations : MonoBehaviour
     public void GradeSimulation()
     {
         int correct = 0;
-        int outOf = 5; // 6; - CHEMICAL SPILL
+        int outOf = 7;
         bool objectActiveAndToggleOn = false; // GameObj active in the hierarchy and toggle is on (user marked violation correctly), +1 point
         bool objectInactiveAndToggleOff = false; // GameObj inactive in violation and toggle off (user did not mark violation because none occured), +1 point
 
@@ -396,6 +400,10 @@ public class ChooseRandomViolations : MonoBehaviour
             afterScoringRestart.gameObject.SetActive(true);
         }
 
+        // Teleport XR Rig to new spot
+        XROriginStart.gameObject.SetActive(false);
+        XROriginEnd.gameObject.SetActive(true);
+        //XROrigin.MoveCameraToWorldLocation(new Vector3(8.312f, -2.177f, -2.029f));
         // Show Screen when everything filled out
         SubmittedScreen.SetActive(true);
     }

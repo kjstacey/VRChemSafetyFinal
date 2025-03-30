@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class SceneManagement : MonoBehaviour
 {
-    [SerializeField] GameObject introText;
+    //[SerializeField] GameObject introText;
 
     public void ReloadCurrent()
     {
