@@ -19,7 +19,7 @@ public class SocketVideo : MonoBehaviour
     private bool quizCompleted = false;
 
     [SerializeField] Button replayButton;
-
+    [SerializeField] GameObject BigScreen;
     [SerializeField] Light light1;
     [SerializeField] Light light2;
 
@@ -29,7 +29,7 @@ public class SocketVideo : MonoBehaviour
         replayButton.gameObject.SetActive(false);
 
         // Set the VideoPlayer's output to the TV screens
-        videoPlayer1.targetMaterialRenderer = tvScreen1;
+        //videoPlayer1.targetMaterialRenderer = tvScreen1;
         videoPlayer2.targetMaterialRenderer = tvScreen2;
 
         // Hide the quiz UI, next scene button, and score text initially
@@ -38,7 +38,7 @@ public class SocketVideo : MonoBehaviour
         //scoreText.SetActive(false);
 
         // Subscribe to the video playback completed event
-        videoPlayer1.loopPointReached += OnVideoPlaybackComplete;
+        //videoPlayer1.loopPointReached += OnVideoPlaybackComplete;
         videoPlayer2.loopPointReached += OnVideoPlaybackComplete;
 
         
@@ -48,17 +48,15 @@ public class SocketVideo : MonoBehaviour
     //private void OnTriggerEnter(Collider other)
     public void PlayVideo()
     {
-        // Check if the VHS tape entered the socket TODO: only do when snapped to socket
-        //if (other.gameObject == objectDetect)
-//{
-            light1.intensity = 0.5f;
-            light2.intensity = 0.3f;
 
-            // Play the video on the TV screens
-            videoPlayer1.Play();
-            videoPlayer2.Play();
-            videoPlaying = true;
-        //}
+        BigScreen.SetActive(true);
+        light1.intensity = 0.5f;
+        light2.intensity = 0.3f;
+                
+        // Play the video on the TV screens
+        //videoPlayer1.Play();
+        videoPlayer2.Play();
+        videoPlaying = true;
     }
 
     private void OnVideoPlaybackComplete(VideoPlayer vp)

@@ -70,6 +70,8 @@ public class ChooseRandomViolations : MonoBehaviour
     // SceneManagement
     SceneManagement sceneManage;
 
+    bool allEqpt;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -96,7 +98,7 @@ public class ChooseRandomViolations : MonoBehaviour
         numHeat = Random.Range(0, 4);
         numGlass = Random.Range(0, 3);
         numSpill = Random.Range(0, 4);
-        numSafety = Random.Range(0, 4);
+        numSafety = Random.Range(0, 2);
 
         int numObjCopy = numObj;
         int numFoodCopy = numFood;
@@ -104,6 +106,12 @@ public class ChooseRandomViolations : MonoBehaviour
         int numGlassCopy = numGlass;
         int numSpillCopy = numSpill;
         int numSafetyCopy = numSafety;
+
+        if (numSafetyCopy == 0)
+        {
+            allEqpt = true;
+        }
+        else allEqpt = false;
 
         // Reshuffle each GameObject[] so that the elements turned on will be random each time
         ReshuffleArray(objWalkway);
@@ -183,10 +191,10 @@ public class ChooseRandomViolations : MonoBehaviour
         // Safety Eqpt
         for (int i = 0; i < safetyEqpt.Length; i++)
         {
-            if (numSafetyCopy > 0)
+            // If allEqpt is true, turn them all on. If not, turn them off.
+            if (allEqpt)
             {
                 safetyEqpt[i].gameObject.SetActive(true);
-                numSafetyCopy--;
             }
             else
             {
@@ -347,6 +355,7 @@ public class ChooseRandomViolations : MonoBehaviour
             objectInactiveAndToggleOff = false; // Reset each time
         
             // Safety Eqpt Check
+            /*
             foreach (var eqpt in safetyEqpt)
             {
                 // If there is a food active in the hierarchy (violation) and toggle is on (user marked violation), turn the bool on and give a point
@@ -360,7 +369,8 @@ public class ChooseRandomViolations : MonoBehaviour
                     objectInactiveAndToggleOff = true;
                 }
             }
-            if (objectActiveAndToggleOn || objectInactiveAndToggleOff)
+            */
+            if (allEqpt && safetyToggle.isOn)//objectActiveAndToggleOn || objectInactiveAndToggleOff)
             {
                 correct++;
                 eqptResultTMP.text = "Passed (" + numSafety + " present)";
@@ -372,8 +382,8 @@ public class ChooseRandomViolations : MonoBehaviour
             objectActiveAndToggleOn = false; // Reset each time
             objectInactiveAndToggleOff = false; // Reset each time
 
-            // Man is in violation (shorts), so only give points if not marked
-            if (!dressToggle.isOn)
+            // Man is in violation (shorts), so only give points if marked
+            if (dressToggle.isOn)
             {
                 correct++;
                 dressResultTMP.text = "Passed (1 present)";
