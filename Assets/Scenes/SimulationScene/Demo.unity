@@ -8053,9 +8053,12 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "To move around the room, point your controller at a teleportation spot
-    (the grey circles) and press the Grab button. \n\nWhen you have finished marking
-    violations, select \"Submit\" on your clipboard."
+  m_text: 'For help with controls, press "A" on your controller to open the Controls
+    menu.
+
+
+    When you have finished marking violations, select "Submit" on your
+    clipboard.'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
