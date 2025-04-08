@@ -1488,7 +1488,7 @@ PrefabInstance:
     - target: {fileID: 8064152044452552696, guid: 9675f01c6d22d63449cc539dc634cde7,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.35
+      value: 0.57
       objectReference: {fileID: 0}
     - target: {fileID: 8064152044452552696, guid: 9675f01c6d22d63449cc539dc634cde7,
         type: 3}
@@ -1498,7 +1498,7 @@ PrefabInstance:
     - target: {fileID: 8064152044452552696, guid: 9675f01c6d22d63449cc539dc634cde7,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -10.58
+      value: -0.188
       objectReference: {fileID: 0}
     - target: {fileID: 8064152044452552696, guid: 9675f01c6d22d63449cc539dc634cde7,
         type: 3}
@@ -1917,7 +1917,7 @@ VideoPlayer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 206655200}
   m_Enabled: 1
-  m_VideoClip: {fileID: 32900000, guid: cda6fb6dbb2b6ba4da21ce1f984f2cc9, type: 3}
+  m_VideoClip: {fileID: 32900000, guid: d4a7c00483c7fb9499679da47fe98f7f, type: 3}
   m_TargetCameraAlpha: 1
   m_TargetCamera3DLayout: 0
   m_TargetCamera: {fileID: 0}
@@ -1930,12 +1930,14 @@ VideoPlayer:
   m_DataSource: 0
   m_PlaybackSpeed: 1
   m_AudioOutputMode: 2
-  m_TargetAudioSources: []
-  m_DirectAudioVolumes: []
+  m_TargetAudioSources:
+  - {fileID: 0}
+  m_DirectAudioVolumes:
+  - 1
   m_Url: 
-  m_EnabledAudioTracks: 
-  m_DirectAudioMutes: 
-  m_ControlledAudioTrackCount: 0
+  m_EnabledAudioTracks: 01
+  m_DirectAudioMutes: 00
+  m_ControlledAudioTrackCount: 1
   m_PlayOnAwake: 0
   m_SkipOnDrop: 1
   m_Looping: 0
