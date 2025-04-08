@@ -20,6 +20,8 @@ public class ValidateJagNumber : MonoBehaviour
     [SerializeField] GameObject keyboard;
     [SerializeField] GameObject invisibleWall;
     [SerializeField] GameObject doors;
+    [SerializeField] GameObject teleportArea;
+    [SerializeField] Button button;
 
     public string FirstLastNameText;
     public string JagNumText;
@@ -32,20 +34,21 @@ public class ValidateJagNumber : MonoBehaviour
         JagNumText = JagNumInput.text;
         int i = 0;
 
+        if (FirstLastNameInput.text.Length == 0 || !FirstLastNameInput.text.Contains(' '))
+        {
+            resultText.text = "Please enter your first and last name.";
+            resultText.color = Color.red;
+        }
         // If a 6 digit input and is a numeric value, return valid
-        if (JagNumText.Length != 6 || !int.TryParse(JagNumText, out i))
+        else if (JagNumText.Length != 6 || !int.TryParse(JagNumText, out i))
         {
             //Debug.Log("input: " + input + "\ninput.length = " + input.Length + "\n!int.TryParse = " + !int.TryParse(input, out i));
             resultText.text = "JagNumber is invalid. Please enter a 6 digit number.";
             resultText.color = Color.red;
         }
-        else if (FirstLastNameInput.text.Length == 0 || !FirstLastNameInput.text.Contains(' '))
-        {
-            resultText.text = "Please enter your first and last name.";
-            resultText.color = Color.red;
-        }
         else
         {
+            button.interactable = false;
             resultText.text = "Thank you!";
             resultText.color = Color.green;
 
@@ -72,6 +75,8 @@ public class ValidateJagNumber : MonoBehaviour
         if (keyboard.activeInHierarchy) keyboard.SetActive(false);
 
         invisibleWall.SetActive(false);
+
+        teleportArea.SetActive(true);
     }
 
     void OpenDoors()
