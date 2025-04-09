@@ -297,6 +297,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Teleport Area (7)
       objectReference: {fileID: 0}
+    - target: {fileID: 4266640295717640279, guid: beb4e2871579447497fe41dfb108e2cd,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4266640295717640280, guid: beb4e2871579447497fe41dfb108e2cd,
         type: 3}
       propertyPath: m_CustomReticle
@@ -4444,6 +4449,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Teleport Area (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 4266640295717640279, guid: beb4e2871579447497fe41dfb108e2cd,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4266640295717640280, guid: beb4e2871579447497fe41dfb108e2cd,
         type: 3}
       propertyPath: m_CustomReticle
@@ -5656,6 +5666,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Teleport Area (4)
       objectReference: {fileID: 0}
+    - target: {fileID: 4266640295717640279, guid: beb4e2871579447497fe41dfb108e2cd,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4266640295717640280, guid: beb4e2871579447497fe41dfb108e2cd,
         type: 3}
       propertyPath: m_CustomReticle
@@ -6311,7 +6326,7 @@ PrefabInstance:
     - target: {fileID: 6598815579406187037, guid: 18ddb545287c546e19cc77dc9fbb2189,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 18ddb545287c546e19cc77dc9fbb2189, type: 3}
@@ -11918,6 +11933,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Teleport Area (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 4266640295717640279, guid: beb4e2871579447497fe41dfb108e2cd,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4266640295717640280, guid: beb4e2871579447497fe41dfb108e2cd,
         type: 3}
       propertyPath: m_CustomReticle
@@ -14550,7 +14570,7 @@ PrefabInstance:
     - target: {fileID: 3232175250661025558, guid: d418b88ef2a439d4390f299cefdca7af,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3232175250661025559, guid: d418b88ef2a439d4390f299cefdca7af,
         type: 3}
@@ -14839,6 +14859,11 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 306423734865422085, guid: beb4e2871579447497fe41dfb108e2cd,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
     - target: {fileID: 2455711654808853570, guid: beb4e2871579447497fe41dfb108e2cd,
         type: 3}
       propertyPath: m_LocalScale.x
@@ -14853,6 +14878,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Teleport Area
+      objectReference: {fileID: 0}
+    - target: {fileID: 4266640295717640279, guid: beb4e2871579447497fe41dfb108e2cd,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4266640295717640280, guid: beb4e2871579447497fe41dfb108e2cd,
         type: 3}
@@ -14878,7 +14908,7 @@ PrefabInstance:
     - target: {fileID: 4266640295717640281, guid: beb4e2871579447497fe41dfb108e2cd,
         type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.25647515
+      value: 0.12779388
       objectReference: {fileID: 0}
     - target: {fileID: 4266640295717640281, guid: beb4e2871579447497fe41dfb108e2cd,
         type: 3}
@@ -14888,7 +14918,7 @@ PrefabInstance:
     - target: {fileID: 4266640295717640281, guid: beb4e2871579447497fe41dfb108e2cd,
         type: 3}
       propertyPath: m_LocalScale.z
-      value: 0.34123376
+      value: 0.16448832
       objectReference: {fileID: 0}
     - target: {fileID: 4266640295717640281, guid: beb4e2871579447497fe41dfb108e2cd,
         type: 3}
@@ -14903,7 +14933,7 @@ PrefabInstance:
     - target: {fileID: 4266640295717640281, guid: beb4e2871579447497fe41dfb108e2cd,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 2.293
+      value: 2.982
       objectReference: {fileID: 0}
     - target: {fileID: 4266640295717640281, guid: beb4e2871579447497fe41dfb108e2cd,
         type: 3}
@@ -15387,6 +15417,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Teleport Area (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 4266640295717640279, guid: beb4e2871579447497fe41dfb108e2cd,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4266640295717640280, guid: beb4e2871579447497fe41dfb108e2cd,
         type: 3}
       propertyPath: m_CustomReticle
@@ -15620,7 +15655,7 @@ PrefabInstance:
     - target: {fileID: 3232175250661025558, guid: d418b88ef2a439d4390f299cefdca7af,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3232175250661025559, guid: d418b88ef2a439d4390f299cefdca7af,
         type: 3}
@@ -16734,7 +16769,7 @@ PrefabInstance:
     - target: {fileID: 3232175250661025558, guid: d418b88ef2a439d4390f299cefdca7af,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3232175250661025559, guid: d418b88ef2a439d4390f299cefdca7af,
         type: 3}
@@ -17708,6 +17743,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Teleport Area (8)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4266640295717640279, guid: beb4e2871579447497fe41dfb108e2cd,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4266640295717640280, guid: beb4e2871579447497fe41dfb108e2cd,
         type: 3}
@@ -18711,7 +18751,7 @@ PrefabInstance:
     - target: {fileID: 3232175250661025558, guid: d418b88ef2a439d4390f299cefdca7af,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3232175250661025559, guid: d418b88ef2a439d4390f299cefdca7af,
         type: 3}
@@ -19449,7 +19489,7 @@ PrefabInstance:
     - target: {fileID: 3232175250661025558, guid: d418b88ef2a439d4390f299cefdca7af,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3232175250661025559, guid: d418b88ef2a439d4390f299cefdca7af,
         type: 3}
@@ -19632,6 +19672,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Teleport Area (6)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4266640295717640279, guid: beb4e2871579447497fe41dfb108e2cd,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4266640295717640280, guid: beb4e2871579447497fe41dfb108e2cd,
         type: 3}
@@ -33784,7 +33829,7 @@ PrefabInstance:
     - target: {fileID: 3232175250661025558, guid: d418b88ef2a439d4390f299cefdca7af,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3232175250661025559, guid: d418b88ef2a439d4390f299cefdca7af,
         type: 3}

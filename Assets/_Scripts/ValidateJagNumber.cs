@@ -76,7 +76,7 @@ public class ValidateJagNumber : MonoBehaviour
 
         invisibleWall.SetActive(false);
 
-        teleportArea.SetActive(true);
+        //teleportArea.SetActive(true);
     }
 
     void OpenDoors()
