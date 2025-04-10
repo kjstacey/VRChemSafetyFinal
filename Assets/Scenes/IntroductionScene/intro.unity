@@ -1964,14 +1964,14 @@ VideoPlayer:
   m_TargetMaterialProperty: _BaseMap
   m_RenderMode: 3
   m_AspectRatio: 2
-  m_DataSource: 0
+  m_DataSource: 1
   m_PlaybackSpeed: 1
   m_AudioOutputMode: 2
   m_TargetAudioSources:
   - {fileID: 0}
   m_DirectAudioVolumes:
   - 1
-  m_Url: 
+  m_Url: https://dl.dropbox.com/scl/fi/8coe4xrok8t7gqmbaa3f2/ChemistrySafetyVideo_Demo.mp4?rlkey=yxm44ia1dxfslhwvzbaqnm0wt&st=pp1m4sw9&dl=0
   m_EnabledAudioTracks: 01
   m_DirectAudioMutes: 00
   m_ControlledAudioTrackCount: 1
