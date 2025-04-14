@@ -373,11 +373,20 @@ public class ChooseRandomViolations : MonoBehaviour
             if (allEqpt && safetyToggle.isOn)//objectActiveAndToggleOn || objectInactiveAndToggleOff)
             {
                 correct++;
-                eqptResultTMP.text = "Passed (" + numSafety + " present)";
+                eqptResultTMP.text = "Passed (All present)";
+            }
+            else if (allEqpt && !safetyToggle.isOn)
+            {
+                eqptResultTMP.text = "Failed (None present)";
+            }
+            else if (!allEqpt && safetyToggle.isOn)
+            {
+                eqptResultTMP.text = "Failed (None present)";
             }
             else
             {
-                eqptResultTMP.text = "Failed (" + numSafety + " present)";
+                correct++;
+                eqptResultTMP.text = "Passed (None present)";
             }
             objectActiveAndToggleOn = false; // Reset each time
             objectInactiveAndToggleOff = false; // Reset each time
