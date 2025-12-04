@@ -23,6 +23,9 @@ public class SocketVideo : MonoBehaviour
     [SerializeField] Light light1;
     [SerializeField] Light light2;
 
+    //public VideoPlayer _videoPlayer;
+    //public string URL;
+
     private void Start()
     {
         // Set Active = false;
@@ -52,9 +55,10 @@ public class SocketVideo : MonoBehaviour
         BigScreen.SetActive(true);
         light1.intensity = 0.5f;
         light2.intensity = 0.3f;
-                
+
         // Play the video on the TV screens
         //videoPlayer1.Play();
+        //videoPlayer2.url = URL;
         videoPlayer2.Play();
         videoPlaying = true;
     }

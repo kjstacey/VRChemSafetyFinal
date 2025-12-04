@@ -4,25 +4,32 @@ using UnityEngine;
 
 public class CloseDoorsAndBlockOff : MonoBehaviour
 {
+    //public CapsuleCollider capsuleCollider;
+    public bool hasBeenClosed = false;
+
     [SerializeField]
     public GameObject doors;
     public GameObject invisibleWall;
+    public GameObject VRRig;
     // Start is called before the first frame update
     
     void Start()
     {
         invisibleWall.SetActive(false);
+        //capsuleCollider = VRRig.GetComponent<CapsuleCollider>();
     }
 
     // Update is called once per frame
-    void OnTriggerExit(Collider coll)
+    public void CloseDoorBlockOff()
     {
-        Debug.Log("Triggered");
-        //if (coll.gameObject.tag == "Player")
-        //{
+        if (!hasBeenClosed) {
+            Debug.Log("Triggered");
+            //if (coll == capsuleCollider)
+            //{
+            hasBeenClosed = true;
             invisibleWall.SetActive(true);
-            Invoke("CloseDoors", 3.0f);
-        //}
+            Invoke("CloseDoors", 2.0f);
+        }
     }
 
     void CloseDoors()
